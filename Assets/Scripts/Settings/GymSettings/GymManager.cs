@@ -1,18 +1,17 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class GymManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    private ObservableLogger _logger;
 
-    // Update is called once per frame
-    void Update()
+    private void Start()
     {
-        
+        _logger = new ObservableLogger();
+        _logger.AddObservable(GymStats.Instance.Bench); 
+        _logger.AddObservable(GymStats.Instance.Squat);
+        _logger.AddObservable(GymStats.Instance.DeadLift); 
     }
 }

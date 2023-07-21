@@ -5,7 +5,7 @@ public class LifeStats : MonoBehaviour
 {
     private int _balance;
     private float _charge;
-    
+
     public enum Moods
     {
         EndedWithGirl,

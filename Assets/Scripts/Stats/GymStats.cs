@@ -3,50 +3,21 @@ using UnityEngine;
 
 public class GymStats : MonoBehaviour
 {
-    private int _bench;
-    private int _squat;
-    private int _deadLift;
+    public ObservableVariable<int> Bench { get; private set; }
+    public ObservableVariable<int> Squat { get; private set; }
+    public ObservableVariable<int> DeadLift { get; private set; }
     
-    public int Bench
+    public static GymStats Instance { get; private set; }
+
+    private void Awake()
     {
-        get
+        if (Instance == null)
         {
-            return _bench;
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+            return;
         }
-        set
-        {
-            if (value > 0)
-                _bench = value;
-            else
-                throw new ArgumentException("Bench must be greater then zero.");
-        }
-    }
-    public int Squat
-    {
-        get
-        {
-            return _squat;
-        }
-        set
-        {
-            if (value > 0)
-                _squat = value;
-            else
-                throw new ArgumentException("Squat must be greater then zero.");
-        }
-    }
-    public int DeadLift
-    {
-        get
-        {
-            return _deadLift;
-        }
-        set
-        {
-            if (value > 0)
-                _squat = value;
-            else
-                throw new ArgumentException("Deadlift must be greater then zero.");
-        }
+        
+        Destroy(gameObject);
     }
 }
