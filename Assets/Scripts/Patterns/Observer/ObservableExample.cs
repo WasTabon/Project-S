@@ -2,15 +2,14 @@ using System;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class ObservableExample : MonoBehaviour
+public class ObservableExample : ObservableLogger
 {
     private ObservableVariable<int> _observableVariableInt;
-    private ObservableLogger _logger;
-    
+
     private void Start()
     {
         _observableVariableInt = new ObservableVariable<int>(10);
-        _logger = new ObservableLogger(_observableVariableInt);
+        AddObservable(_observableVariableInt);
     }
 
     private void Update()
@@ -23,5 +22,10 @@ public class ObservableExample : MonoBehaviour
     {
         int randomInt = Random.Range(1, 100);
         _observableVariableInt.Value = randomInt;
+    }
+
+    protected override void OnChanged(object obj)
+    {
+        Debug.Log($"{obj.GetType().Name} - {obj.ToString()}");
     }
 }

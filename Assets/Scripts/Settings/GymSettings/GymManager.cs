@@ -3,15 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GymManager : MonoBehaviour
+public class GymManager : ObservableLogger
 {
-    private ObservableLogger _logger;
-
     private void Start()
     {
-        _logger = new ObservableLogger();
-        _logger.AddObservable(GymStats.Instance.Bench); 
-        _logger.AddObservable(GymStats.Instance.Squat);
-        _logger.AddObservable(GymStats.Instance.DeadLift); 
+        AddObservable(GymStats.Instance.Bench);
+        AddObservable(GymStats.Instance.Squat);
+        AddObservable(GymStats.Instance.DeadLift);
     }
 }

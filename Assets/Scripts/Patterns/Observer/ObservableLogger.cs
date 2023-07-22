@@ -1,30 +1,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ObservableLogger : IObserver
+public abstract class ObservableLogger : MonoBehaviour, IObserver
 {
-    private List<IObservable> _observables;
+    private List<IObservable> _observables = new();
 
-    public ObservableLogger()
-    {
-        _observables = new List<IObservable>();
-    }
-
-    public ObservableLogger(IObservable observable)
-    {
-        _observables = new List<IObservable>{observable};
-        observable.OnChanged += OnChanged;
-    }
-    public ObservableLogger(IObservable[] observables)
-    {
-        _observables = new List<IObservable>(observables);
-
-        foreach (IObservable observable in _observables)
-        {
-            observable.OnChanged += OnChanged;
-        }
-    }
-    
     public void AddObservable(IObservable observable)
     {
         if (_observables.Contains(observable))
@@ -42,8 +22,8 @@ public class ObservableLogger : IObserver
         }
     }
     
-    private void OnChanged(object obj)
+    protected virtual void OnChanged(object obj)
     {
-        Debug.Log($"{obj.GetType().Name} value changed. New value: {obj.ToString()}");
+        
     }
 }
